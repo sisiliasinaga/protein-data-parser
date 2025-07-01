@@ -4,10 +4,11 @@ import React, { useState } from "react";
 
 type Props = {
     setPdbUrl: (url: string) => void;
-    setMetadata: (data: { chain_count: number, residue_count: number, atom_count: number }) => void;
+    setMetadata: (data: any) => void;
+    setUploadedFile: (file: string) => void;
 }
 
-export default function UploadForm({ setPdbUrl, setMetadata }: Props) {
+export default function UploadForm({ setPdbUrl, setMetadata, setUploadedFile }: Props) {
     const [file, setFile] = useState<File | null>(null);
     const [status, setStatus] = useState<"idle" | "uploading" | "success" | "error">("idle");
 
@@ -37,13 +38,11 @@ export default function UploadForm({ setPdbUrl, setMetadata }: Props) {
             }
 
             const metadata = await response.json();
-            const url = `http://localhost:8000/pdbs/${metadata.filename}`;
+            const filename = metadata.filename;
+            const url = `http://localhost:8000/pdbs/${filename}`;
             setPdbUrl(url);
-            setMetadata({
-                chain_count: metadata.chain_count,
-                residue_count: metadata.residue_count,
-                atom_count: metadata.atom_count,
-            });
+            setMetadata(metadata);
+            setUploadedFile(filename);
 
             setStatus("success");
         } catch (error) {
