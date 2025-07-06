@@ -6,6 +6,7 @@ import ProteinViewer from "../components/ProteinViewer";
 import MetadataDisplay from "../components/MetadataDisplay";
 import AnalysisTable from "../components/AnalysisTable";
 import { runAnalysis } from "../utils/api";
+import MutationForm from "../components/MutationForm";
 
 type ChainData = {
   id: string;
@@ -54,10 +55,18 @@ export default function Home() {
             <UploadForm setPdbUrl={setPdbUrl} setMetadata={setMetadata} setUploadedFile={setUploadedFile} />
             {pdbUrl && <ProteinViewer url={pdbUrl} />}
             {metadata && <MetadataDisplay metadata={metadata} />}
-            <button onClick={handleRunAnalysis}>Analyze</button>
+            {uploadedFile && (
+              <button 
+                className="bg-blue-500 text-white px-4 py-2 rounded font-semibold hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed mt-4"
+                onClick={handleRunAnalysis}
+              >
+                Analyze
+              </button>
+            )}
             {isAnalyzing && <p>Analyzing...</p>}
             {analysisError && <p>{analysisError}</p>}
             {analysisData && <AnalysisTable analysisData={analysisData} />}
+            {analysisData && uploadedFile && <MutationForm filename={uploadedFile} />}
                         
           </section>
         </main>
