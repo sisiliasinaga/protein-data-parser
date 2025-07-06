@@ -644,6 +644,8 @@ function MutationForm({ filename }) {
     const [chain, setChain] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [position, setPosition] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [target, setTarget] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+    const [successMessage, setSuccessMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [errorMessage, setErrorMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const handleSubmit = async (event)=>{
         event.preventDefault();
         if (!chain || position === "" || !target) {
@@ -651,12 +653,6 @@ function MutationForm({ filename }) {
             return;
         }
         try {
-            console.log("Sending mutation:", {
-                filename,
-                chain_id: chain,
-                residue_index: position,
-                new_residue: target
-            });
             const response = await fetch("http://localhost:8000/mutate", {
                 method: "POST",
                 headers: {
@@ -673,12 +669,40 @@ function MutationForm({ filename }) {
                 throw new Error("Failed to mutate PDB");
             }
             const result = await response.json();
-            alert(result.message);
+            setSuccessMessage(result.message);
         } catch (error) {
-            console.error("Error mutating PDB:", error);
-            alert("Error mutating PDB");
+            setErrorMessage("Failed to apply mutation. Please try again.");
+            setSuccessMessage(null);
         }
     };
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "MutationForm.useEffect": ()=>{
+            if (successMessage) {
+                const timer = setTimeout({
+                    "MutationForm.useEffect.timer": ()=>setSuccessMessage(null)
+                }["MutationForm.useEffect.timer"], 3000);
+                return ({
+                    "MutationForm.useEffect": ()=>clearTimeout(timer)
+                })["MutationForm.useEffect"];
+            }
+        }
+    }["MutationForm.useEffect"], [
+        successMessage
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "MutationForm.useEffect": ()=>{
+            if (errorMessage) {
+                const timer = setTimeout({
+                    "MutationForm.useEffect.timer": ()=>setErrorMessage(null)
+                }["MutationForm.useEffect.timer"], 3000);
+                return ({
+                    "MutationForm.useEffect": ()=>clearTimeout(timer)
+                })["MutationForm.useEffect"];
+            }
+        }
+    }["MutationForm.useEffect"], [
+        errorMessage
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "mt-6 rounded-lg bg-gray-100 p-4",
         children: [
@@ -687,8 +711,24 @@ function MutationForm({ filename }) {
                 children: "Mutate Protein"
             }, void 0, false, {
                 fileName: "[project]/src/components/MutationForm.tsx",
-                lineNumber: 56,
+                lineNumber: 74,
                 columnNumber: 13
+            }, this),
+            successMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "bg-green-100 text-green-800 px-4 py-2 rounded mb-4 shadow-sm border border-green-200",
+                children: successMessage
+            }, void 0, false, {
+                fileName: "[project]/src/components/MutationForm.tsx",
+                lineNumber: 76,
+                columnNumber: 17
+            }, this),
+            errorMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "bg-red-100 text-red-800 px-4 py-2 rounded mb-4 shadow-sm border border-red-200",
+                children: errorMessage
+            }, void 0, false, {
+                fileName: "[project]/src/components/MutationForm.tsx",
+                lineNumber: 81,
+                columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                 onSubmit: handleSubmit,
@@ -706,18 +746,18 @@ function MutationForm({ filename }) {
                                     required: true
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/MutationForm.tsx",
-                                    lineNumber: 61,
+                                    lineNumber: 89,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/MutationForm.tsx",
-                            lineNumber: 59,
+                            lineNumber: 87,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/MutationForm.tsx",
-                        lineNumber: 58,
+                        lineNumber: 86,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -732,18 +772,18 @@ function MutationForm({ filename }) {
                                     required: true
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/MutationForm.tsx",
-                                    lineNumber: 73,
+                                    lineNumber: 101,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/MutationForm.tsx",
-                            lineNumber: 71,
+                            lineNumber: 99,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/MutationForm.tsx",
-                        lineNumber: 70,
+                        lineNumber: 98,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -759,18 +799,18 @@ function MutationForm({ filename }) {
                                     required: true
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/MutationForm.tsx",
-                                    lineNumber: 85,
+                                    lineNumber: 113,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/MutationForm.tsx",
-                            lineNumber: 83,
+                            lineNumber: 111,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/MutationForm.tsx",
-                        lineNumber: 82,
+                        lineNumber: 110,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$3$2e$4_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -779,23 +819,23 @@ function MutationForm({ filename }) {
                         children: "Submit"
                     }, void 0, false, {
                         fileName: "[project]/src/components/MutationForm.tsx",
-                        lineNumber: 94,
+                        lineNumber: 122,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/MutationForm.tsx",
-                lineNumber: 57,
+                lineNumber: 85,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/MutationForm.tsx",
-        lineNumber: 55,
+        lineNumber: 73,
         columnNumber: 9
     }, this);
 }
-_s(MutationForm, "bxUSci2hgDgsTqe4bYBroF3Bivg=");
+_s(MutationForm, "4fPaI5FdBVL9iDml1dfI/DayKLU=");
 _c = MutationForm;
 var _c;
 __turbopack_context__.k.register(_c, "MutationForm");
